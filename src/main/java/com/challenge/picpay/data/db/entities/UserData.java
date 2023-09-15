@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.challenge.picpay.core.domain.User;
+import com.challenge.picpay.core.domain.UserType;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,7 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User {
+public class UserData {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,4 +50,7 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserType userType;
 
+  public User fromThis() {
+    return new User(id, firstName, lastName, document, email, password, balance, userType);
+  }
 }

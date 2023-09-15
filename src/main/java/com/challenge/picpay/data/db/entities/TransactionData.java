@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Transaction {
+public class TransactionData {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -33,11 +33,11 @@ public class Transaction {
 
   @ManyToOne
   @JoinColumn(name = "sender_id")
-  private User sender;
+  private UserData sender;
 
   @ManyToOne
   @JoinColumn(name = "receiver_id")
-  private User receiver;
+  private UserData receiver;
 
   private LocalDateTime timestamp;
 }

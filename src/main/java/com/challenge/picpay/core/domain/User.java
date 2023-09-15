@@ -5,31 +5,24 @@ import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Value;
 
-@Value
 @AllArgsConstructor
 @Getter
 @Setter
 public class User {
-  private final Long id;
+  private Long id;
 
-  private final String firstName;
+  private String firstName;
 
-  private final String lastName;
+  private String lastName;
 
-  private final String document;
+  private String document;
 
-  private final String email;
+  private String email;
 
-  private final String password;
+  private String password;
 
-  private final BigDecimal balance;
+  private BigDecimal balance;
 
-  private final UserType userType;
-}
-
-enum UserType {
-  COMMON,
-  MERCHANT
+  private UserType userType;
 }
