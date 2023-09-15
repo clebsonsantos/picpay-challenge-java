@@ -1,4 +1,4 @@
-package com.challenge.picpay.domain.entities;
+package com.challenge.picpay.data.db.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
