@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.challenge.picpay.core.domain.User;
-import com.challenge.picpay.core.domain.dtos.NotificationDTO;
+import com.challenge.picpay.core.dtos.NotificationDTO;
 
 public class SendNotificationUseCase {
 

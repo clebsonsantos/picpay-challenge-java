@@ -10,27 +10,27 @@ import org.springframework.web.client.RestTemplate;
 
 import com.challenge.picpay.core.domain.Transaction;
 import com.challenge.picpay.core.domain.User;
-import com.challenge.picpay.core.domain.dtos.TransactionDTO;
+import com.challenge.picpay.core.dtos.TransactionDTO;
 import com.challenge.picpay.core.usecases.user.FindUserByIdUseCase;
-import com.challenge.picpay.core.usecases.user.PersistUserUseCase;
 import com.challenge.picpay.core.usecases.user.UserException;
+import com.challenge.picpay.core.usecases.user.UserRepository;
 
 public class CreateTransactionUseCase {
-  private TransactionReposytory transactionReposytory;
+  private TransactionRepository transactionRepository;
+
+  private UserRepository userRepository;
 
   private FindUserByIdUseCase findUserById;
-
-  private PersistUserUseCase persistUser;
 
   private ValidateTransactionUseCase validateTransaction;
 
   private RestTemplate restTemplate;
 
-  public CreateTransactionUseCase(TransactionReposytory transactionReposytory, FindUserByIdUseCase findUserById,
-      PersistUserUseCase persistUser, ValidateTransactionUseCase validateTransaction, RestTemplate restTemplate) {
-    this.transactionReposytory = transactionReposytory;
+  public CreateTransactionUseCase(TransactionRepository transactionRepository, UserRepository UserRepository,
+      FindUserByIdUseCase findUserById, ValidateTransactionUseCase validateTransaction, RestTemplate restTemplate) {
+    this.transactionRepository = transactionRepository;
+    this.userRepository = UserRepository;
     this.findUserById = findUserById;
-    this.persistUser = persistUser;
     this.validateTransaction = validateTransaction;
     this.restTemplate = restTemplate;
   }
@@ -54,9 +54,9 @@ public class CreateTransactionUseCase {
     sender.setBalance(sender.getBalance().subtract(transaction.value()));
     receive.setBalance(receive.getBalance().add(transaction.value()));
 
-    this.transactionReposytory.save(newTransaction);
-    this.persistUser.perform(sender);
-    this.persistUser.perform(receive);
+    this.transactionRepository.save(newTransaction);
+    this.userRepository.save(sender);
+    this.userRepository.save(receive);
   }
 
   public boolean authrorizeTransaction(User sender, BigDecimal value) {
