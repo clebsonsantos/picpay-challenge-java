@@ -5,21 +5,21 @@ import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 
-@Value
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Transaction {
-  private final Long id;
+  private Long id;
 
-  private final BigDecimal amount;
+  private BigDecimal amount;
 
-  private final User sender;
+  private User sender;
 
-  private final User receiver;
+  private User receiver;
 
-  private final LocalDateTime timestamp;
+  private LocalDateTime timestamp;
 }
