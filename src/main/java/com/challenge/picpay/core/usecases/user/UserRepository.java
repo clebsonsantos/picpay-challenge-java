@@ -8,4 +8,6 @@ public interface UserRepository {
   Optional<User> findByDocument(String document);
 
   Optional<User> findUserById(Long id);
+
+  void save(User user);
 }

@@ -28,4 +28,9 @@ public class UserRepositoryImpl implements UserRepository {
         .map(UserData::fromThis);
   }
 
+  @Override
+  public void save(User user) {
+    this.repository.save(user);
+  }
+
 }
