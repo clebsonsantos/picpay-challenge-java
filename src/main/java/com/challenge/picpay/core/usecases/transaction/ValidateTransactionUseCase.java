@@ -1,11 +1,9 @@
 package com.challenge.picpay.core.usecases.transaction;
 
 import java.math.BigDecimal;
-import org.springframework.stereotype.Service;
 import com.challenge.picpay.core.domain.User;
 import com.challenge.picpay.core.domain.UserType;
 
-@Service
 public class ValidateTransactionUseCase {
 
   public void perform(User sender, BigDecimal amount) throws TransactionException {

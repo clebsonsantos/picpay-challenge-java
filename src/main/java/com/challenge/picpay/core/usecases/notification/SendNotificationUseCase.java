@@ -1,20 +1,17 @@
 package com.challenge.picpay.core.usecases.notification;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.challenge.picpay.core.domain.User;
 import com.challenge.picpay.core.domain.dtos.NotificationDTO;
 
-@Service
 public class SendNotificationUseCase {
-  @Autowired
+
   private RestTemplate restTemplate;
 
   public void perform(User user, String message) throws Exception {
