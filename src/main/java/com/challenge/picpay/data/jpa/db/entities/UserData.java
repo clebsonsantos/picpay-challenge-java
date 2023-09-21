@@ -1,4 +1,4 @@
-package com.challenge.picpay.data.db.entities;
+package com.challenge.picpay.data.jpa.db.entities;
 
 import java.math.BigDecimal;
 

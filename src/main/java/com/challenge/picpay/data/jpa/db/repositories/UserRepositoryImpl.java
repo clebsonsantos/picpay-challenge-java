@@ -1,11 +1,11 @@
-package com.challenge.picpay.data.db.repositories;
+package com.challenge.picpay.data.jpa.db.repositories;
 
 import java.util.Optional;
 
 import com.challenge.picpay.core.domain.User;
 
 import com.challenge.picpay.core.usecases.user.UserRepository;
-import com.challenge.picpay.data.db.entities.UserData;
+import com.challenge.picpay.data.jpa.db.entities.UserData;
 
 public class UserRepositoryImpl implements UserRepository {
   private final JpaUserRepository repository;
