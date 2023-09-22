@@ -1,4 +1,4 @@
-package com.challenge.picpay.data.jpa.db.entities;
+package com.challenge.picpay.data.db.jpa.entities;
 
 import java.math.BigDecimal;
 
@@ -14,18 +14,14 @@ import javax.persistence.Table;
 import com.challenge.picpay.core.domain.User;
 import com.challenge.picpay.core.domain.UserType;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "users")
+@Entity
 @Table(name = "users")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class UserData {
 

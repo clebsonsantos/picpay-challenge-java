@@ -1,4 +1,4 @@
-package com.challenge.picpay.data.jpa.db.entities;
+package com.challenge.picpay.data.db.jpa.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,15 +14,11 @@ import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-@Entity(name = "transactions")
+@Entity
 @Table(name = "transactions")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class TransactionData {
   @Id

@@ -1,12 +1,16 @@
-package com.challenge.picpay.data.jpa.db.repositories;
+package com.challenge.picpay.data.db.jpa.repositories;
 
 import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import com.challenge.picpay.core.domain.User;
 
 import com.challenge.picpay.core.usecases.user.UserRepository;
-import com.challenge.picpay.data.jpa.db.entities.UserData;
+import com.challenge.picpay.data.db.jpa.entities.UserData;
 
+@Component
 public class UserRepositoryImpl implements UserRepository {
   private final JpaUserRepository repository;
 
@@ -29,8 +33,11 @@ public class UserRepositoryImpl implements UserRepository {
   }
 
   @Override
-  public void save(User user) {
-    this.repository.save(user);
+  public User save(User user) {
+    UserData userData = new UserData();
+    BeanUtils.copyProperties(user, userData);
+
+    return this.repository.save(userData).fromThis();
   }
 
 }

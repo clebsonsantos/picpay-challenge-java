@@ -4,7 +4,7 @@ import com.challenge.picpay.core.domain.User;
 import com.challenge.picpay.core.dtos.UserDTO;
 
 public class PersistUserUseCase {
-  private UserRepository repository;
+  final UserRepository repository;
 
   public PersistUserUseCase(UserRepository repository) {
     this.repository = repository;
@@ -24,8 +24,9 @@ public class PersistUserUseCase {
     newUser.setFirstName(user.firstName());
     newUser.setLastName(user.lastName());
     newUser.setPassword(user.password());
+    newUser.setUserType(user.userType());
 
-    this.repository.save(newUser);
-    return newUser;
+    User response = this.repository.save(newUser);
+    return response;
   }
 }

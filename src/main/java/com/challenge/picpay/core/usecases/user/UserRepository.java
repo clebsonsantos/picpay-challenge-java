@@ -9,5 +9,5 @@ public interface UserRepository {
 
   Optional<User> findUserById(Long id);
 
-  void save(User user);
+  User save(User user);
 }
