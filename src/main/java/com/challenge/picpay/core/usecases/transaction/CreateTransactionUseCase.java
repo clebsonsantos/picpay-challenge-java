@@ -62,6 +62,9 @@ public class CreateTransactionUseCase {
     this.userRepository.save(receive);
     newTransaction.setId(transactionId);
 
+    // TODO: send a new notification to Receive and Sender by
+    // SendNotificationUseCase
+
     return newTransaction;
   }
 
