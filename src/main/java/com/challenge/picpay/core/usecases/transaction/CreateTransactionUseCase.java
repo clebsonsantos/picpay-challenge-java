@@ -2,6 +2,7 @@ package com.challenge.picpay.core.usecases.transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import com.challenge.picpay.core.dtos.TransactionDTO;
 import com.challenge.picpay.core.usecases.user.FindUserByIdUseCase;
 import com.challenge.picpay.core.usecases.user.UserException;
 import com.challenge.picpay.core.usecases.user.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CreateTransactionUseCase {
   private TransactionRepository transactionRepository;
@@ -35,13 +37,14 @@ public class CreateTransactionUseCase {
     this.restTemplate = restTemplate;
   }
 
-  public void perform(TransactionDTO transaction) throws UserException, TransactionException {
+  public Transaction perform(TransactionDTO transaction) throws UserException, TransactionException {
     User sender = this.findUserById.perform(transaction.senderId());
     User receive = this.findUserById.perform(transaction.receiveId());
 
     validateTransaction.perform(sender, transaction.value());
+    boolean isAuthorized = this.authrorizeTransaction(sender, transaction.value());
 
-    if (!this.authrorizeTransaction(sender, transaction.value())) {
+    if (!isAuthorized) {
       throw new TransactionException("Não autorizado.");
     }
 
@@ -54,17 +57,28 @@ public class CreateTransactionUseCase {
     sender.setBalance(sender.getBalance().subtract(transaction.value()));
     receive.setBalance(receive.getBalance().add(transaction.value()));
 
-    this.transactionRepository.save(newTransaction);
+    Long transactionId = this.transactionRepository.save(newTransaction);
     this.userRepository.save(sender);
     this.userRepository.save(receive);
+    newTransaction.setId(transactionId);
+
+    return newTransaction;
   }
 
   public boolean authrorizeTransaction(User sender, BigDecimal value) {
-    ResponseEntity<Map> response = restTemplate.getForEntity("https://teste.com.br", Map.class);
-    if (response.getStatusCode() == HttpStatus.OK) {
-      String message = (String) response.getBody().get("message");
-      return "Autorizado".equalsIgnoreCase(message);
-    } else
+    try {
+      String webhook = "https://webhook.site/7bffa1f3-af4c-4130-b2b3-53c2e3eae2e0";
+      ResponseEntity<String> response = restTemplate.getForEntity(webhook, String.class);
+      System.out.println(response.getBody());
+
+      Map<String, Object> result = new ObjectMapper().readValue(response.getBody(), HashMap.class);
+      if (response.getStatusCode() == HttpStatus.OK) {
+        String message = (String) result.get("message");
+        return "Autorizado".equalsIgnoreCase(message);
+      } else
+        return false;
+    } catch (Exception exception) {
       return false;
+    }
   }
 }

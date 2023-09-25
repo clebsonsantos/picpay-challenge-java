@@ -25,7 +25,6 @@ public class UserController {
 
   @PostMapping
   public ResponseEntity<User> createUser(@RequestBody UserDTO user) throws UserException {
-    System.out.println(user);
     User newUser = this.persistUserUseCase.perform(user);
     return new ResponseEntity<>(newUser, HttpStatus.CREATED);
   }
