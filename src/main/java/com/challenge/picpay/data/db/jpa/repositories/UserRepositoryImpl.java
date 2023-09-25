@@ -1,5 +1,6 @@
 package com.challenge.picpay.data.db.jpa.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -40,4 +41,8 @@ public class UserRepositoryImpl implements UserRepository {
     return this.repository.save(userData).fromThis();
   }
 
+  @Override
+  public List<User> findAll() {
+    return repository.findAll().stream().map(UserData::fromThis).toList();
+  }
 }

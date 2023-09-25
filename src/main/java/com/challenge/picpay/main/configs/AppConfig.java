@@ -8,6 +8,7 @@ import com.challenge.picpay.core.usecases.transaction.CreateTransactionUseCase;
 import com.challenge.picpay.core.usecases.transaction.TransactionRepository;
 import com.challenge.picpay.core.usecases.transaction.ValidateTransactionUseCase;
 import com.challenge.picpay.core.usecases.user.FindUserByIdUseCase;
+import com.challenge.picpay.core.usecases.user.GetAllUsersUseCase;
 import com.challenge.picpay.core.usecases.user.PersistUserUseCase;
 import com.challenge.picpay.core.usecases.user.UserRepository;
 
@@ -39,5 +40,10 @@ public class AppConfig {
   @Bean
   RestTemplate restTemplate() {
     return new RestTemplate();
+  }
+
+  @Bean
+  GetAllUsersUseCase getAllUsersUseCase(UserRepository userRepository) {
+    return new GetAllUsersUseCase(userRepository);
   }
 }
